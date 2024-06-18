@@ -1,5 +1,6 @@
 class Reporte:
-    def __init__(self,empleado_p,cedula_p,codigo_p,nombreh_p,stock_p,fecha_p,fecha_pf,estado,comentario):
+    def __init__(self,id_p,empleado_p,cedula_p,codigo_p,nombreh_p,stock_p,fecha_p,fecha_pf,estado,comentario):
+        self.id_p = id_p
         self.empleado_p = empleado_p
         self.cedula_p = cedula_p
         self.codigo_p = codigo_p
@@ -12,6 +13,7 @@ class Reporte:
 
     def ReporteDBCollection(self):
         return{
+            "id_p":self.id_p,
             "empleado_p":self.empleado_p,
             "cedula_p":self.cedula_p,
             "codigo_p":self.codigo_p,

@@ -1,0 +1,113 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert alert-danger">
+            {{ messages[0] }}
+        </div>
+        {% endif %}
+        {% endwith %}
+        <form  action="/admin/reporte/re_vistacompleta" method="get">
+            <Label>Reporte de los Productos</Label>
+            <br>
+            <a href="" class="btn btn-primary">Completo</a>
+        </form>
+        <br>
+        <table class="table table-bordered table-hover" id="myTable">
+            <thead>
+                <tr>
+                    <th>Id de prestamo</th>
+                    <th>Nombre del empleado</th>
+                    <th>Cedula</th>
+                    <th>Codigo de herramienta</th>
+                    <th>Nombre de herramienta</th>
+                    <th>Cantidad </th>
+                    <th>Fecha de Prestamo</th>
+                    <th >Fecha de Entrega</th>
+                    <th>Estado</th>
+                    <th>Comentario</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in reporte %}
+                <tr>
+                    <td>
+                        {{item.id_p}}
+                    </td>    
+                    <td>
+                            {{item.empleado_p}}
+                        </td>
+                        <td>
+                            {{item.cedula_p}}
+                        </td>
+                        <td>
+                            {{item.codigo_p}}
+                        </td>
+                        <td>
+                            {{item.nombreh_p}}
+                        </td>
+                        <td>
+                            {{item.stock_p}}
+                        </td>
+                        <td class="date1"> 
+                            {{item.fecha_p}}
+                        </td>
+                        <td class="date2">
+                            {{item.fecha_pf}}
+                        </td>
+                        <td>
+                            {{item.estado}}
+                        </td>
+                        <td>
+                            
+                            {{item.comentario}}
+                        </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $('#myTable').DataTable({
+        "language": {
+            "url": "/static/js/Spanish.json"
+        }
+    });
+    
+    document.addEventListener("DOMContentLoaded", function () {
+    const fechasP = document.querySelectorAll(".date1");
+    const fechasPF = document.querySelectorAll(".date2");
+
+    function formatearFechaManual(elementos) {
+        elementos.forEach(function(elemento) {
+            const fechaISO = elemento.textContent;
+            // Extrae los componentes de la fecha y hora
+            const [fecha, horaCompleta] = fechaISO.split('T');
+            const [anio, mes, dia] = fecha.split('-');
+            const [hora, minutos] = horaCompleta.split(':');
+
+            // Convierte el mes de número a nombre
+            const nombresDeMeses = [
+                'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+            ];
+            const nombreDelMes = nombresDeMeses[parseInt(mes) - 1];
+
+            // Asume que los segundos son cero si no están presentes
+            const segundos = "00";
+
+            // Formatea la fecha en el nuevo formato
+            const fechaFormateada = `${nombreDelMes} ${dia} ${anio} ${hora}:${minutos}`;
+            
+            // Actualiza el contenido del elemento con la nueva fecha formateada
+            elemento.textContent = fechaFormateada;
+        });
+    }
+    formatearFechaManual(fechasP);
+    formatearFechaManual(fechasPF);
+});
+</script>
+{% endblock %}
