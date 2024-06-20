@@ -10,10 +10,15 @@
         {% endif %}
         {% endwith %}
         <form  action="/admin/reporte/re_vistacompleta" method="get">
-            <Label>Reporte de los Productos</Label>
+            <Label>Reporte de Prestamos</Label>
             <br>
-            <a href="" class="btn btn-primary">Completo</a>
+            <br>
+            <input type="text" id="vcedula" name="cedula_p" placeholder="Ingresar cedula" class="form-control" style="width: 170px;">
+            <br>
+            <input type="submit" value="Filtrar" class="btn btn-primary">
+            <a href="{{ url_for('reporte.re_vistacompleta') }}" class="btn btn-primary">Completo</a>
         </form>
+        
         <br>
         <table class="table table-bordered table-hover" id="myTable">
             <thead>
@@ -57,7 +62,7 @@
                         <td class="date2">
                             {{item.fecha_pf}}
                         </td>
-                        <td>
+                        <td class="estado">
                             {{item.estado}}
                         </td>
                         <td>
@@ -77,37 +82,35 @@
         }
     });
     
-    document.addEventListener("DOMContentLoaded", function () {
-    const fechasP = document.querySelectorAll(".date1");
-    const fechasPF = document.querySelectorAll(".date2");
+   // Obtén todos los elementos con la clase "estado"
+   const elementosEstado = document.querySelectorAll(".estado");
 
-    function formatearFechaManual(elementos) {
-        elementos.forEach(function(elemento) {
-            const fechaISO = elemento.textContent;
-            // Extrae los componentes de la fecha y hora
-            const [fecha, horaCompleta] = fechaISO.split('T');
-            const [anio, mes, dia] = fecha.split('-');
-            const [hora, minutos] = horaCompleta.split(':');
-
-            // Convierte el mes de número a nombre
-            const nombresDeMeses = [
-                'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-                'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-            ];
-            const nombreDelMes = nombresDeMeses[parseInt(mes) - 1];
-
-            // Asume que los segundos son cero si no están presentes
-            const segundos = "00";
-
-            // Formatea la fecha en el nuevo formato
-            const fechaFormateada = `${nombreDelMes} ${dia} ${anio} ${hora}:${minutos}`;
-            
-            // Actualiza el contenido del elemento con la nueva fecha formateada
-            elemento.textContent = fechaFormateada;
-        });
+// Itera sobre cada elemento y verifica su contenido
+elementosEstado.forEach((elemento) => {
+    const estadoTexto = elemento.textContent.trim();
+    if (estadoTexto === "Entregado") {
+        elemento.style.backgroundColor = "blue";
+        elemento.style.color = "white";
+    } else if (estadoTexto === "Prestado") {
+        elemento.style.backgroundColor = "red";
+        elemento.style.color = "white";
     }
-    formatearFechaManual(fechasP);
-    formatearFechaManual(fechasPF);
 });
+// Selecciona todos los elementos con la clase "date1"
+const date1Elements = document.getElementsByClassName("date1");
+
+// Selecciona todos los elementos con la clase "date2"
+const date2Elements = document.getElementsByClassName("date2");
+
+// Ahora puedes trabajar con estos elementos según tus necesidades
+// Por ejemplo, para ocultar la parte "(tiempo universal coordinado)":
+for (const element of date1Elements) {
+    element.textContent = element.textContent.replace(" (tiempo universal coordinado)", "");
+}
+
+for (const element of date2Elements) {
+    element.textContent = element.textContent.replace(" (tiempo universal coordinado)", "");
+}
+
 </script>
 {% endblock %}

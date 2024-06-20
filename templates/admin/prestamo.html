@@ -57,11 +57,10 @@
                     <td>
                         {{item.fecha_pf}}
                     </td>
-                    <td>
+                    <td style="background-color: red;color: white;">
                         {{item.estado}}
                     </td>
                     <td>
-
                         {{item.comentario}}
                     </td>
                     <td>
@@ -110,7 +109,10 @@
             </div>
             <div class="col">
                 <label for="rol">Estado</label>
-                <input type="text" name="estado" id="estado" class="form-control" >
+                <select name="estado" id="estado" class="form-control">
+                    <option value="Prestado">Prestado</option>
+                    <option value="Entregado">Entregado</option>
+                </select>
             </div>
             <div class="col">
                 <label for="rol">Comentario</label>

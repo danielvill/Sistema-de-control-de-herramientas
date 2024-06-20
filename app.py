@@ -16,7 +16,7 @@ from routes.herramientas import  herramientas
 from routes.prestamo import prestamo
 from routes.reporte import reporte
 
-# ! Puntos para instalar pip install flask-paginate flask pymongo reportlab
+# ! Puntos para instalar pip install flask-paginate flask pymongo reportlab pip install babel
 # ! Codigo para que se ejecute 
 
 db = dbase()

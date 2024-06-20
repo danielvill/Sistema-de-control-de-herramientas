@@ -3,9 +3,15 @@ from controllers.database import Conexion as dbase
 from modules.prestamo import Prestamo
 from modules.reporte import Reporte
 from pymongo import MongoClient
+from datetime import datetime
+from babel.dates import format_datetime
+import locale
+
 db = dbase()
 prestamo = Blueprint('prestamo', __name__)
 reporte = Blueprint('reporte', __name__)
+# Establece la configuración regional en español
+locale.setlocale(locale.LC_TIME, 'es_ES')
 
 # Funcion para hacer un id autoincremntable 
 def get_next_sequence(name):
@@ -42,10 +48,14 @@ def prest():
         nombreh_p = request.form['nombreh_p']
         stock_p = request.form['stock_p']
         id_h = request.form['id_h'] 
-        fecha_p = request.form['fecha_p']
+        # Formatear fecha
+        fecha_dt = request.form['fecha_p']
+        fecha_pt =datetime.strptime(fecha_dt, '%Y-%m-%dT%H:%M')
+        fecha_p = format_datetime(fecha_pt, locale='es_ES',format='full') # Formatear la fecha para que salga de esta forma
+        
         fecha_pf = request.form['fecha_pf']
         estado = request.form['estado']
-        comentario = request.form['comentario']
+        comentario = request.form['comentario'] 
         # Validar que los campos no estén vacíos
         campos_vacios = any(not request.form[field].strip() for field in ['empleado_p', 'cedula_p', 'codigo_p', 'nombreh_p', 'stock_p', 'id_h', 'fecha_p', 'estado', 'comentario'])
         
@@ -81,11 +91,17 @@ def v_pre():
         nombreh_p = request.form['nombreh_p']
         stock_p = request.form['stock_p']
         fecha_p = request.form['fecha_p']
-        fecha_pf = request.form['fecha_pf']
+        # Formatear la fecha de finalziacion
+        fecha_ft = request.form['fecha_pf']
+        
+        
+
         estado = request.form['estado']
         comentario = request.form['comentario']
         
-        if fecha_pf:  # Verifica si fecha_pf no está vacío
+        if fecha_ft:  # Verifica si fecha_pf no está vacío
+                fecha_pft =datetime.strptime(fecha_ft, '%Y-%m-%dT%H:%M')          
+                fecha_pf = format_datetime(fecha_pft, locale='es_ES',format='full')
                 report.insert_one(Reporte(id_p,empleado_p,cedula_p,codigo_p,nombreh_p,stock_p,fecha_p,fecha_pf,estado,comentario).ReporteDBCollection())
                 prestamo.delete_one({'id_p' : id_p})  # Eliminar De prestamo
                 actual = int(stock_p) + int (stock)
