@@ -10,10 +10,16 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import SimpleDocTemplate, Table, Paragraph, TableStyle, Spacer ,Image
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet ,ParagraphStyle
+from datetime import datetime # Para el backund tiene que importarse para ver la fecha en la que se genero
+import os
+import csv
 
 db = dbase()
 
 reporte = Blueprint('reporte', __name__)
+
+
+
 
 # *Visualizar reporte
 @reporte.route("/admin/reporte")

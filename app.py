@@ -92,6 +92,19 @@ def index():
     else:
         return render_template('index.html')
     
+#Vista de todo lo del sistema
+@app.route("/admin/inicio",methods = ["GET", "POST"])
+def inicio():
+    if 'username' not in session:
+        flash("Inicia sesion con tu usuario y contraseña")
+        return redirect(url_for('herramientas.index'))
+    herramientas = db["herramientas"].find()
+    prestamo = db["prestamo"].find()
+    prestadi = db["prestamo"].find()
+    reporte = db["reporte"].find()
+    reporte2 = db["reporte"].find()
+    return render_template('admin/inicio.html', empleados=empleados, herramientas=herramientas, prestamo=prestamo,prestadi=prestadi
+    ,reporte=reporte,reporte2= reporte2)
 
 # *Codigo de ingreso de empleados
 app.register_blueprint(empleados)

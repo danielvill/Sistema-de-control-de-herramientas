@@ -37,7 +37,7 @@
     <script src="/static/js/timemensaje.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse set-radius-zero">
+    <div class="navbar navbar-inverse set-radius-zero" style="background-image: url('/static/assets/img/herra.jpg');">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -50,17 +50,18 @@
                 </a>
             </div>
             <div class="right-div">
-                <a href="{{ url_for('logout') }}" class="btn btn-primary pull-right">Salir</a>
+                <a href="{{ url_for('logout') }}" class="btn btn-primary pull-right" style="background-color: white; color: black;">Salir</a>
             </div>
         </div>
     </div>
     <!-- LOGO HEADER END-->
-    <section class="menu-section">
+    <section class="menu-section"  >
         <div class="container">
             <div class="row ">
                 <div class="col-md-12">
                     <div class="navbar-collapse collapse ">
                         <ul id="menu-top" class="nav navbar-nav navbar-right">
+                            <li><a href="./inicio">Home</a></li>
                             <li><a href="./reporte">Reporte</a></li>
                             <li>
                                 <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown">Empleados
@@ -92,7 +93,6 @@
                         </ul>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>

@@ -9,14 +9,15 @@
         </div>
         {% endif %}
         {% endwith %}
+
         <form  action="/admin/reporte/re_vistacompleta" method="get">
             <Label>Reporte de Prestamos</Label>
             <br>
             <br>
             <input type="text" id="vcedula" name="cedula_p" placeholder="Ingresar cedula" class="form-control" style="width: 170px;">
             <br>
-            <input type="submit" value="Filtrar" class="btn btn-primary">
-            <a href="{{ url_for('reporte.re_vistacompleta') }}" class="btn btn-primary">Completo</a>
+            <input type="submit" value="Filtrar" class="btn btn-primary" style="background-color: #696F6B;color: white;">
+            <a href="{{ url_for('reporte.re_vistacompleta') }}" class="btn btn-primary" style="background-color: #696F6B;color: white;">Completo</a>
         </form>
         
         <br>
