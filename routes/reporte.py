@@ -184,3 +184,38 @@ def re_vistacompleta():
     generar_pdf_vistacompleta(clie)
     
     return send_file('reporte.pdf', as_attachment=True)
+
+
+# Editar Reporte
+@reporte.route('/edit_re/<int:repor>', methods=['GET', 'POST'])
+def edit_re(repor):
+    reportes = db["reporte"]
+    id_p = request.form["id_p"]
+    empleado_p = request.form['empleado_p']
+    cedula_p = request.form['cedula_p']
+    codigo_p = request.form['codigo_p']
+    nombreh_p = request.form['nombreh_p']
+    stock_p = request.form['stock_p']
+    fecha_p = request.form['fecha_p']
+    fecha_pf = request.form['fecha_pf']
+    estado = request.form['estado']
+    comentario = request.form['comentario']
+
+    if id_p and empleado_p and cedula_p and codigo_p and nombreh_p and stock_p and fecha_p and fecha_p and fecha_pf  and estado and comentario:
+        reportes.update_one({"id_p":repor},{"$set":{ 
+        "empleado_p":empleado_p,
+        "cedula_p":cedula_p,
+        "codigo_p":codigo_p,
+        "nombreh_p":nombreh_p,
+        "stock_p":stock_p,
+        "fecha_p":fecha_p,
+        "fecha_pf":fecha_pf,
+        "estado":estado,
+        "comentario":comentario
+        }})
+        flash(" Id " + id_p + " con nombre " + empleado_p + " actualizado con exito ")
+        return redirect(url_for('reporte.v_reporte'))
+    else:
+        return render_template('admin/reporte.html')
+    
+
