@@ -62,7 +62,7 @@
                 </div>
                 <br>
                 <label for="">Fecha de inicio de prestamo</label>
-                <input type="datetime-local" name="fecha_p" class="form-control ">
+                <input type="datetime-local" name="fecha_p" id="fecha_p" class="form-control ">
                 <input type="hidden" value="" name="fecha_pf" class="form-control ">
                 <label for="">Estado</label>
                 <input type="text" name="estado" value="Prestado" class="form-control" readonly>
@@ -137,5 +137,22 @@
 </div>
 <script src="/static/js/admin/in_prestamo.js"></script>
 <script>
+</script>
+<script>
+        // Obtener la fecha y hora actual
+let today = new Date();
+let dd = String(today.getDate()).padStart(2, '0');
+let mm = String(today.getMonth() + 1).padStart(2, '0'); // Enero es 0!
+let yyyy = today.getFullYear();
+
+let hh = String(today.getHours()).padStart(2, '0');
+let min = String(today.getMinutes()).padStart(2, '0');
+
+// Formatear la fecha y hora actual para el atributo min y max
+let formattedDate = `${yyyy}-${mm}-${dd}T${hh}:${min}`;
+
+document.getElementById("fecha_p").setAttribute("min", formattedDate);
+document.getElementById("fecha_p").setAttribute("max", formattedDate);
+
 </script>
 {% endblock %}

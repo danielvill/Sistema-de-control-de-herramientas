@@ -15,7 +15,7 @@
                             <tr>
                                 <th>Codigo</th>
                                 <th>Nombre de Herramientas</th>
-                                <th>Cantidad</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -27,7 +27,7 @@
                                 <td>
                                     {{herramienta.nombre_h}}
                                 </td>
-                                <td>
+                                <td class="converse">
                                     {{herramienta.stock}}
                                 </td>
                             </tr>
@@ -225,4 +225,23 @@
 </script>
 <script src="/static/js/admin/inicio1.js"></script>
 <script src="/static/js/admin/inicio2.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+    // Obtener todos los elementos con la clase 'converse'
+    let elements = document.querySelectorAll('.converse');
+
+    elements.forEach(element => {
+        // Obtener el valor de `herramienta.stock` que está dentro del elemento
+        let stock = parseInt(element.innerText.trim(), 10);
+
+        // Comprobar el valor y actualizar el texto
+        if (stock === 0) {
+            element.innerText = 'prestado';
+        } else if (stock === 1) {
+            element.innerText = 'bodega';
+        }
+    });
+});
+
+</script>
 {% endblock %}

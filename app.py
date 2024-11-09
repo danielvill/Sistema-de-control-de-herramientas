@@ -22,6 +22,7 @@ import os
 db = dbase()
 app = Flask(__name__)
 app.secret_key = 'herramientas14526'
+# Recuerda que en la computadora de Joshua estaba el disco E pero esto puede varias dependiendo en donde se coloque
 app.config['UPLOAD_FOLDER'] = 'E:/Joshua Benites Construccion/Herramientas/static/img'
 
 

@@ -105,7 +105,7 @@
             </div>
             <div class="col">
                 <label for="rol">Fecha de Entrega</label>
-                <input type="datetime-local" name="fecha_pf" class="form-control" id="fecha_pf">
+                <input type="datetime-local"   name="fecha_pf" class="form-control" id="fecha_pf">
             </div>
             <div class="col">
                 <label for="rol">Estado</label>
@@ -194,6 +194,24 @@
             }
         });
     });
+
+</script>
+
+<script>
+    // Obtener la fecha y hora actual
+let today = new Date();
+let dd = String(today.getDate()).padStart(2, '0');
+let mm = String(today.getMonth() + 1).padStart(2, '0'); // Enero es 0!
+let yyyy = today.getFullYear();
+
+let hh = String(today.getHours()).padStart(2, '0');
+let min = String(today.getMinutes()).padStart(2, '0');
+
+// Formatear la fecha y hora actual para el atributo min y max
+let formattedDate = `${yyyy}-${mm}-${dd}T${hh}:${min}`;
+
+document.getElementById("fecha_pf").setAttribute("min", formattedDate);
+document.getElementById("fecha_pf").setAttribute("max", formattedDate);
 
 </script>
 
